@@ -17,6 +17,7 @@ jobs:
         run: |
           echo 'username:${{ secrets.USERNAME }}
           password:${{ secrets.PASSWORD }}' >> config.yml
+          cat config.yml
       - name: 'Download file from PikPak'
         run: |
           chmod a+x pikpakcli
