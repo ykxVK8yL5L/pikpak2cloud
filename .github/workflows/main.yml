@@ -26,7 +26,7 @@ jobs:
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         with:
-          args: copy ${{ github.event.inputs.path }} remote2:/
+          args: copy ${{ github.event.inputs.path }} remote2:${{ github.event.inputs.path }}
         
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
