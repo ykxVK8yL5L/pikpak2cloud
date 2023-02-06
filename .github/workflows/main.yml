@@ -1,4 +1,4 @@
-name: Upload-Onedriver
+name: 转存到Onedriver
 on:
   repository_dispatch:
   workflow_dispatch:
