@@ -15,8 +15,10 @@ jobs:
       - name: 'Create Config'
         run: |
           echo -e "username:${{ secrets.USERNAME }}\npassword:${{ secrets.PASSWORD }}" >> config.yml
+          ls
       - name: 'Download file from PikPak'
         run: |
+          ls
           chmod a+x pikpakcli
           ./pikpakcli download -p ${{ github.event.inputs.path }}
           ls
