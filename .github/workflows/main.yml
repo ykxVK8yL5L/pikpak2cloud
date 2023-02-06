@@ -9,7 +9,7 @@ on:
         default: 'PikPak Tutorial.mp4'
 
 jobs:
-  backup:
+  Onedriver:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
