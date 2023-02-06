@@ -6,7 +6,7 @@ on:
       path:
         description: '下载路径'
         required: true
-        default: 'My Pack'
+        default: 'PikPak Tutorial.mp4'
 
 jobs:
   backup:
