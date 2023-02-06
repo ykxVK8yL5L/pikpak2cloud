@@ -6,7 +6,7 @@ on:
       path:
         description: '下载路径'
         required: true
-        default: 'PikPak Tutorial.mp4'
+        default: 'Onedriver'
 
 jobs:
   Onedriver:
@@ -22,7 +22,7 @@ jobs:
         run: |
           ls
           chmod a+x pikpakcli
-          ./pikpakcli download ${{ github.event.inputs.path }}
+          ./pikpakcli download -p ${{ github.event.inputs.path }}
           ls
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
