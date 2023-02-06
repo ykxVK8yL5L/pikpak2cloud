@@ -12,6 +12,7 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: 'Create Config'
         run: |
           echo -e "username:${{ secrets.USERNAME }}\npassword:${{ secrets.PASSWORD }}" >> config.yml
