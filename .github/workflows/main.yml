@@ -1,1 +1,14 @@
+name: Upload-Onedriver
+on:
+  push:
+    branches: [ "main" ]
 
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Create Config'
+        run: |
+          echo -e "username:${{ secrets.USERNAME }}\npassword:${{ secrets.PASSWORD }}" >> config.yml
+          ls
+          cat config.yml
