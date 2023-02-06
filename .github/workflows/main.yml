@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: 'Create Config'
         run: |
+          echo $PWD
           echo -e "username:${{ secrets.USERNAME }}\npassword:${{ secrets.PASSWORD }}" >> config.yml
           ls
       - name: 'Download file from PikPak'
