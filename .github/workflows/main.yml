@@ -20,6 +20,7 @@ jobs:
           cat config.yml
       - name: 'Download file from PikPak'
         run: |
+          ls
           chmod a+x pikpakcli
           ./pikpakcli download -p ${{ github.event.inputs.path }}
           ls
