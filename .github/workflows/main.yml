@@ -1,7 +1,12 @@
 name: Upload-Onedriver
 on:
-  push:
-    branches: [ "main" ]
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'My Pack'
 
 jobs:
   backup:
@@ -10,5 +15,9 @@ jobs:
       - name: 'Create Config'
         run: |
           echo -e "username:${{ secrets.USERNAME }}\npassword:${{ secrets.PASSWORD }}" >> config.yml
+      - name: 'Download file from PikPak'
+        run: |
+          chmod a+x pikpakcli
+          ./pikpakcli download -p ${{ github.event.inputs.path }}
           ls
-          cat config.yml
+
