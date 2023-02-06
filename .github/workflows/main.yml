@@ -20,15 +20,7 @@ jobs:
           cat config.yml
       - name: 'Download file from PikPak'
         run: |
-          ls
           chmod a+x pikpakcli
           ./pikpakcli download -p ${{ github.event.inputs.path }}
-          ls
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v1.2.3
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 0
-          keep_minimum_runs: 0
+
 
