@@ -1,4 +1,5 @@
 # pikpak2cloud
+# 由于github的限制 最大只能传14g的文件
 pikpak转存到其它网盘(Onedriver)
 https://youtu.be/t9KhFoWQqEI
 
