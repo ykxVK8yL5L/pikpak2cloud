@@ -1,0 +1,38 @@
+name: 转存到Onedriver Mac 最大上传14G左右
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Onedriver'
+
+jobs:
+  Onedriver:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Create Config'
+        run: |
+          echo 'username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}' >> config.yml
+      - name: 'Download file from PikPak'
+        run: |
+          chmod a+x pikpakcli-mac
+          ./pikpakcli-mac download -p ${{ github.event.inputs.path }}
+      - name: rclone
+        uses: wei/rclone@v1
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        with:
+          args: copy ${{ github.event.inputs.path }} remote2:${{ github.event.inputs.path }}
+        
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
+
