@@ -1,4 +1,4 @@
-name: 转存到Onedriver
+name: 转存到Onedriver linux 最大上传9G左右
 on:
   repository_dispatch:
   workflow_dispatch:
