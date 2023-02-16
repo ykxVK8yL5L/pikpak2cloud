@@ -1,4 +1,4 @@
-name: 转存到Onedriver Mac 最大上传14G左右
+name: Mac 最大上传14G左右
 on:
   repository_dispatch:
   workflow_dispatch:
