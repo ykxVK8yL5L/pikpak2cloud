@@ -1,5 +1,5 @@
 # pikpak2cloud
-# 由于github的限制 最大只能传14g的文件
+# 由于github的限制 Linux的Actions最大只能传9g的文件 Mac最大能传14g。
 pikpak转存到其它网盘(Onedriver)
 https://youtu.be/t9KhFoWQqEI
 
