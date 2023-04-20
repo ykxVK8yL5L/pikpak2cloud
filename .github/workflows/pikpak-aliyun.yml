@@ -33,7 +33,7 @@ jobs:
       - name: rclone
         uses: wei/rclone@v1
         env:
-          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+          RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
         with:
           args: copy ${{ github.event.inputs.path }} aliyun:${{ github.event.inputs.path }}
         
