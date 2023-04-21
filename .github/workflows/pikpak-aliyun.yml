@@ -9,7 +9,7 @@ on:
         default: 'Onedriver'
 
 jobs:
-  Onedriver:
+  PikPak-Aliyun:
     runs-on: ubuntu-latest
     services:
       aliyun:
