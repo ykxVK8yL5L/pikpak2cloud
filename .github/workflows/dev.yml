@@ -1,0 +1,53 @@
+name: 使用dev镜像测试功能
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      Url:
+        description: '下载URL'
+        required: true
+        default: 'https://网址##名称'
+      Folder:
+        description: '保存目录'
+        required: true
+        default: 'test'
+
+jobs:
+  Aria2-Aliyun:
+    runs-on: ubuntu-latest
+    services:
+      aliyun:
+        image: messense/aliyundrive-webdav
+        env:
+          REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:dev
+        env:
+          DAV_PASSWORD: '123456'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Aria2 Install
+        run: sudo apt install -y aria2 
+      - name: Downloading
+        id: downloading
+        run: |
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          echo "::set-output name=path::downloads/$filename"
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
+          
+      - name: rclone
+        uses: wei/rclone@v1
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
+        with:
+          args: copy ${{ steps.downloading.outputs.path }} aliyun:${{ github.event.inputs.Folder}}
+        
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
