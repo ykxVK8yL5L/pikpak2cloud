@@ -21,7 +21,7 @@ jobs:
         env:
           REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
       alist:
-        image: ykxvk8yl5l/alist-encrypt
+        image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
     steps:
