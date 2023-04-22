@@ -1,4 +1,4 @@
-name: PikPak加密转存Aliyun
+name: Aria2下载直链加密转存Aliyun
 on:
   repository_dispatch:
   workflow_dispatch:
