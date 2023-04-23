@@ -24,8 +24,6 @@ jobs:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
-        volumes:
-        - ${{ github.workspace }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
