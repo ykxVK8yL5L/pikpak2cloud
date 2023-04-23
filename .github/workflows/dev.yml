@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run:  apt-get update && apt-get install -y aria2 
+        run:  sudo apt-get install -y aria2 
       - name: Run alist-encrypt
         run: docker run --name alist -p 5344:5344 -v $GITHUB_WORKSPACE/config.json:/root/conf/config.json ykxvk8yl5l/alist-encrypt:dev
       - name: Downloading
