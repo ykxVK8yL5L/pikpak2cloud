@@ -27,7 +27,7 @@ jobs:
       ports:
         - 5344
       volumes:
-        - ${{GITHUB_WORKSPACE}}/config.json:/root/conf/config.json
+        - ${{ github.workspace }}/config.json:/root/conf/config.json
         
 #       alist:
 #         image: ykxvk8yl5l/alist-encrypt:dev
