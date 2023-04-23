@@ -30,14 +30,14 @@ jobs:
       image: ykxvk8yl5l/alist-encrypt:dev
       env:
         DAV_PASSWORD: '123456'
-      volumes:
-      - ${{ github.workspace }}/config.json:/root/conf/config.json
+#       volumes:
+#       - ${{ github.workspace }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
         run:  apt-get update && apt-get install -y aria2 
-      - name: Check config.json
-        run: cat /root/conf/config.json
+      - name: Create config.json
+        run: cp ${{ github.workspace }}/config.json /root/conf/
       - name: Downloading
         id: downloading
         run: |
