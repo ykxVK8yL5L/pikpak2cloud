@@ -20,19 +20,10 @@ jobs:
         image: messense/aliyundrive-webdav
         env:
           REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
-    container:
-      image: ykxvk8yl5l/alist-encrypt:dev
-      env:
-        DAV_PASSWORD: '123456'
-      ports:
-        - 5344
-      volumes:
-        - ${{ github.workspace }}/config.json:/root/conf/config.json
-        
-#       alist:
-#         image: ykxvk8yl5l/alist-encrypt:dev
-#         env:
-#           DAV_PASSWORD: '123456'
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:dev
+        env:
+          DAV_PASSWORD: '123456'
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
