@@ -37,7 +37,7 @@ jobs:
       - name: Aria2 Install
         run:  apt-get update && apt-get install -y aria2 
       - name: Check config.json
-        run: cat /root/config.json
+        run: cat /root/conf/config.json
       - name: Downloading
         id: downloading
         run: |
