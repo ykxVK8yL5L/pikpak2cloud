@@ -25,7 +25,7 @@ jobs:
         env:
           DAV_PASSWORD: '123456'
         volumes:
-        - $GITHUB_WORKSPACE/config.json:/root/conf/config.json
+        - ${{ env:GITHUB_WORKSPACE }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
