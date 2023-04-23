@@ -20,14 +20,24 @@ jobs:
         image: messense/aliyundrive-webdav
         env:
           REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
-      alist:
-        image: ykxvk8yl5l/alist-encrypt:dev
-        env:
-          DAV_PASSWORD: '123456'
+#       alist:
+#         image: ykxvk8yl5l/alist-encrypt:dev
+#         env:
+#           DAV_PASSWORD: '123456'
+    container:
+      image: ykxvk8yl5l/alist-encrypt:dev
+      env:
+        DAV_PASSWORD: '123456'
+      ports:
+        - 5344
+      volumes:
+        - ${{ github.workspace }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run: sudo apt install -y aria2 
+        run: apt install -y aria2 
+      - name: Check config
+        run: cat /root/conf/config.json
       - name: Downloading
         id: downloading
         run: |
@@ -36,7 +46,6 @@ jobs:
           downloadurl=${url%##*}
           echo "::set-output name=path::downloads/$filename"
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
-          
       - name: rclone
         uses: wei/rclone@v1
         env:
