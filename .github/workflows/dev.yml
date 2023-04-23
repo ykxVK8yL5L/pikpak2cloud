@@ -46,6 +46,8 @@ jobs:
           downloadurl=${url%##*}
           echo "::set-output name=path::downloads/$filename"
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
+      - name: Check config.json
+        run: cat /root/conf/config.json
       - name: rclone
         uses: wei/rclone@v1
         env:
