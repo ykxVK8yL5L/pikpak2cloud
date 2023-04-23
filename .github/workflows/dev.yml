@@ -20,16 +20,18 @@ jobs:
         image: messense/aliyundrive-webdav
         env:
           REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
-      alist:
-        image: ykxvk8yl5l/alist-encrypt:dev
-        env:
-          DAV_PASSWORD: '123456'
+#       alist:
+#         image: ykxvk8yl5l/alist-encrypt:dev
+#         env:
+#           DAV_PASSWORD: '123456'
 #         volumes:
 #         - ${{ github.workspace }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
         run:  apt-get update && apt-get install -y aria2 
+      - name: Run alist-encrypt
+        run: docker run --name alist -p 5344:5344 -v $GITHUB_WORKSPACE/config.json:/root/conf/config.json ykxvk8yl5l/alist-encrypt:dev
       - name: Downloading
         id: downloading
         run: |
