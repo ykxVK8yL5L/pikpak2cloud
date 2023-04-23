@@ -37,7 +37,7 @@ jobs:
       - name: Aria2 Install
         run:  apt-get update && apt-get install -y aria2 
       - name: Create config.json
-        run: cp $GITHUB_WORKSPACE/config.json /root/conf/
+        run: mkdir /root/conf && cp $GITHUB_WORKSPACE/config.json /root/conf/
       - name: Downloading
         id: downloading
         run: |
