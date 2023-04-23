@@ -27,7 +27,7 @@ jobs:
 #         volumes:
 #         - ${{ github.workspace }}/config.json:/root/conf/config.json
     container:
-      image: messense/aliyundrive-webdav
+      image: ykxvk8yl5l/alist-encrypt:dev
       env:
         DAV_PASSWORD: '123456'
       volumes:
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run: uname -a && apt update && apt-get install -y aria2 
+        run:  apt-get update && apt-get install -y aria2 
       - name: Check config.json
         run: cat /root/config.json
       - name: Downloading
