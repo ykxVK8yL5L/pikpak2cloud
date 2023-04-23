@@ -25,7 +25,7 @@
 		{
 			"id": "abcdefg",
 			"name": "aliyun-webdav",
-			"describe": "aliyun webdav",
+			"describe": "aliyun webdav for dev test",
 			"path": "/*",
 			"enable": true,
 			"serverHost": "aliyun",
