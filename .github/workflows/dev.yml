@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run: apt-get update && apt-get install -y aria2 
+        run: uname -a && apt update && apt-get install -y aria2 
       - name: Check config.json
         run: cat /root/config.json
       - name: Downloading
