@@ -20,16 +20,24 @@ jobs:
         image: messense/aliyundrive-webdav
         env:
           REFRESH_TOKEN: '${{ secrets.ALIYUN_REFRESH_TOKEN }}'
-      alist:
-        image: ykxvk8yl5l/alist-encrypt:dev
-        env:
-          DAV_PASSWORD: '123456'
-        volumes:
-        - ${{ runner.workspace }}/config.json:/root/conf/config.json
+#       alist:
+#         image: ykxvk8yl5l/alist-encrypt:dev
+#         env:
+#           DAV_PASSWORD: '123456'
+#         volumes:
+#         - ${{ github.workspace }}/config.json:/root/conf/config.json
+    container:
+      image: messense/aliyundrive-webdav
+      env:
+        DAV_PASSWORD: '123456'
+      volumes:
+      - ${{ github.workspace }}/config.json:/root/conf/config.json
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run: apt install -y aria2 
+        run: apt-get update && apt-get install -y aria2 
+      - name: Check config.json
+        run: cat /root/config.json
       - name: Downloading
         id: downloading
         run: |
