@@ -1,0 +1,50 @@
+{
+	"alistServer": {
+		"name": "alist",
+		"path": "/*",
+		"describe": "alist 配置",
+		"serverHost": "192.168.1.100",
+		"serverPort": 5244,
+		"https": false,
+		"passwdList": [
+			{
+				"password": "123456",
+				"describe": "my video",
+				"encType": "aesctr",
+				"enable": true,
+				"encName": true,
+				"encSuffix": "",
+				"encPath": [
+					"encrypt_folder/*",
+					"/189cloud/atest/*"
+				]
+			}
+		]
+	},
+	"webdavServer": [
+		{
+			"id": "abcdefg",
+			"name": "aliyun-webdav",
+			"describe": "aliyun webdav",
+			"path": "/*",
+			"enable": true,
+			"serverHost": "aliyun",
+			"serverPort": 8080,
+			"https": false,
+			"passwdList": [
+				{
+					"password": "123456",
+					"encType": "aesctr",
+					"describe": "my video",
+					"enable": true,
+					"encName": false,
+					"encNameSuffix": "",
+					"encPath": [
+						"/*"
+					]
+				}
+			]
+		}
+	],
+	"port": 5344
+}
