@@ -61,15 +61,17 @@ def mount_aliyun(refresh_token:str,root_id:str,token:str):
 
 
 if __name__ == '__main__':
-  print('hello')
-  quit()
   if args.act=='mount':
     mount_aliyun(args.refresh_token,args.dir,args.token)
+    quit()
   elif args.act=='download':
     download(args.url,args.token)
+    quit()
   elif args.act=='login':
     token=login()
     print(token)
+    quit()
   else:
     upload(args.file,args.token)
+    quit()
 
