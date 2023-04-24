@@ -1,4 +1,4 @@
-name: 使用Alist镜像测试功能
+name: 使用Alist的镜像测试加密文件名
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -13,10 +13,14 @@ on:
         default: 'test'
 
 jobs:
-  TestforAlist:
+  Dev:
     runs-on: ubuntu-latest
     services:
       alist:
+        image: xhofe/alist:latest
+        env:
+          ALIST_ADMIN_PASSWORD: 'admin'
+      alist-encrypt:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
@@ -24,10 +28,44 @@ jobs:
       - uses: actions/checkout@v2
       - name: Aria2 Install
         run:  sudo apt-get install -y aria2 
+        
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install prerequisites
+        run: |
+          python -m pip install --upgrade pip wheel
+          pip install requests
+      
+      - name: Login
+        id: login
+        run: |
+          wget -O test http://alist:5244 
+          ls
+          cat test
+          ltoken=$(python alist.py --act='login')
+          echo "::set-output name=token::$ltoken"
+          
+      - name: Mount aliyun
+        run: |
+          python alist.py --act='mount' --refresh_token='${{ secrets.ALIST_REFRESH_TOKEN }}' --dir='${{ github.event.inputs.Folder}}' --token='${{ steps.login.outputs.token }}'
+          
       - name: Downloading
         id: downloading
         run: |
-          wget -O test http://alist:5344
-          ls
-          cat test
-      
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          echo "::set-output name=path::downloads/$filename"
+          python alist.py --act='download' --url="$url"
+      - name: Upload File
+        run: |
+          python alist.py --act='upload' --file='${{ steps.downloading.outputs.filename }}' --token='${{ steps.login.outputs.token }}'
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
