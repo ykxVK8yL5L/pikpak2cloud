@@ -5,7 +5,7 @@ import json
 import requests
 
 parser = argparse.ArgumentParser(description='操作Alist')
-parser.add_argument("--act", help="挂行动作", default="")
+parser.add_argument("--act", help="执行动作", default="")
 parser.add_argument("--url", help="下载链接", default="")
 parser.add_argument("--refresh_token", help="Aliyun的refresh_token", default="")
 parser.add_argument("--token", help="Alist的token", default="")
