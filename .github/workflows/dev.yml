@@ -39,8 +39,11 @@ jobs:
           echo "::set-output name=filename::$filename"
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
       - name: upload
-        run: |
-          curl -T "${{ steps.downloading.outputs.path }}" "http://alist:5344/encrypt_folder/${{ steps.downloading.outputs.filename }}"
+        uses: wei/curl@v1
+        with:
+          args: --upload-file ${{ steps.downloading.outputs.path }} http://alist:5344/encrypt_folder/${{ steps.downloading.outputs.filename }}
+ #       run: |
+ #         curl -T "${{ steps.downloading.outputs.path }}" "http://alist:5344/encrypt_folder/${{ steps.downloading.outputs.filename }}"
         
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
