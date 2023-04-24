@@ -22,13 +22,13 @@ jobs:
           ALIST_ADMIN_PASSWORD: 'admin'
         ports:
           - 5244:5244
-      alist-encrypt:
-        image: ykxvk8yl5l/alist-encrypt:dev
-        env:
-          DAV_PASSWORD: '123456'
-          DAV_ENCNAME: true
-        ports:
-          - 5344:5344
+#       alist-encrypt:
+#         image: ykxvk8yl5l/alist-encrypt:dev
+#         env:
+#           DAV_PASSWORD: '123456'
+#           DAV_ENCNAME: true
+#         ports:
+#           - 5344:5344
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
@@ -48,28 +48,3 @@ jobs:
           wget -O test http://alist:5244 
           ls
           cat test
-          ltoken=$(python alist.py --act='login')
-          echo "::set-output name=token::$ltoken"
-          
-      - name: Mount aliyun
-        run: |
-          python alist.py --act='mount' --refresh_token='${{ secrets.ALIST_REFRESH_TOKEN }}' --dir='${{ github.event.inputs.Folder}}' --token='${{ steps.login.outputs.token }}'
-          
-      - name: Downloading
-        id: downloading
-        run: |
-          url="${{ github.event.inputs.Url}}"
-          filename=${url##*##}
-          downloadurl=${url%##*}
-          echo "::set-output name=path::downloads/$filename"
-          python alist.py --act='download' --url="$url"
-      - name: Upload File
-        run: |
-          python alist.py --act='upload' --file='${{ steps.downloading.outputs.filename }}' --token='${{ steps.login.outputs.token }}'
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v1.2.3
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 0
-          keep_minimum_runs: 0
