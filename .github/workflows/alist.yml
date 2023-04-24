@@ -25,7 +25,6 @@ jobs:
         env:
           DAV_PASSWORD: '123456'
           DAV_ENCNAME: true
-          ALIST_ADMIN_PASSWORD: 'admin'
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
