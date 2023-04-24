@@ -10,7 +10,7 @@ on:
       Folder:
         description: '保存目录'
         required: true
-        default: 'test'
+        default: 'encrypt_folder'
 
 jobs:
   Aria2-Aliyun:
