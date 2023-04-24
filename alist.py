@@ -66,8 +66,8 @@ if __name__ == '__main__':
   elif args.act=='download':
     download(args.url,args.token)
   elif args.act=='login':
-#    token=login()
-    print('token')
+    token=login()
+    print(token)
   else:
     upload(args.file,args.token)
 
