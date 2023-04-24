@@ -13,17 +13,18 @@ on:
         default: 'test'
 
 jobs:
-  Dev:
+  TestAlist:
     runs-on: ubuntu-latest
     services:
-      aliyun:
-        image: messense/aliyundrive-webdav
+      alist:
+        image: xhofe/alist:latest
         env:
-          REFRESH_TOKEN: 'hello'
+          ALIST_ADMIN_PASSWORD: 'admin'
       alist-encrypt:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
+          DAV_ENCNAME: true
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
@@ -41,14 +42,11 @@ jobs:
       - name: Login
         id: login
         run: |
-          wget -O test http://alist-encrypt:5344
           ltoken=$(python alist.py --act='login')
           echo "::set-output name=token::$ltoken"
-          
       - name: Mount aliyun
         run: |
           python alist.py --act='mount' --refresh_token='${{ secrets.ALIST_REFRESH_TOKEN }}' --dir='${{ github.event.inputs.Folder}}' --token='${{ steps.login.outputs.token }}'
-          
       - name: Downloading
         id: downloading
         run: |
