@@ -1,4 +1,4 @@
-name: 的镜像测试加密文件名
+name: 测试加密文件名
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
         default: 'test'
 
 jobs:
-  TestAlist:
+  TestEncname:
     runs-on: ubuntu-latest
     services:
       alist:
