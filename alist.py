@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 
 def login():
-  url = "http://localhost:5344/api/auth/login?Password=admin&Username=admin"
+  url = "http://127.0.0.1:5344/api/auth/login?Password=admin&Username=admin"
   payload={}
   headers = {}
   response = requests.request("POST", url, headers=headers, data=payload)
