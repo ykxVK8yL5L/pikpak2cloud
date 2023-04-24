@@ -28,7 +28,7 @@ def download(downloadUrl:str):
   cmd = "aria2c --conf aria2.conf --seed-time=0 -o "+urlinfo[1]+" -d downloads -c \""+urlinfo[0]+"\""
   os.system(cmd)
 
-def upload(filename: str):
+def upload(filename: str,token:str):
   cmd = "curl -T 'zouzou.mp4' 'http://alist:5344/api/fs/put  -X 'PUT' \
   -H 'Accept: application/json, text/plain, */*' \
   -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
