@@ -1,6 +1,7 @@
 # pikpak2cloud
 
 # 20230421新增加密转存阿里云功能
+在网盘根目录建立encrypt_folder目录作为默认上传目录  
 需要添加两个secrets:   
 ALIYUN_REFRESH_TOKEN:阿里云刷新Token用来挂载阿里云webdav    
 RCLONE_ALIYUN_CONF:Rclone用来拷贝文件到阿里云Webdav,或添加到已有secrets.内容为固定的。
