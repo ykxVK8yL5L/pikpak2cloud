@@ -39,7 +39,7 @@ jobs:
         id: login
         run: |
           token=$(python alist.py --act='login')
-          echo "::set-output name=toekn::$token"
+          echo "::set-output name=token::$token"
           
       - name: Mount aliyun
         run: |
