@@ -22,6 +22,8 @@ jobs:
           DAV_PASSWORD: '123456'
           DAV_ENCNAME: true
           ALIST_ADMIN_PASSWORD: 'admin'
+        ports:
+          - 5344:5344
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
