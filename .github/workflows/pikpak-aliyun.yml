@@ -35,7 +35,7 @@ jobs:
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
         with:
-          args: copy ${{ github.event.inputs.path }} aliyun:${{ github.event.inputs.path }}
+          args: copy ${{ github.event.inputs.path }} aliyun:/encrypt_folder
         
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
