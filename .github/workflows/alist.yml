@@ -16,10 +16,10 @@ jobs:
   Dev:
     runs-on: ubuntu-latest
     services:
-      alist:
-        image: xhofe/alist:latest
+      aliyun:
+        image: messense/aliyundrive-webdav
         env:
-          ALIST_ADMIN_PASSWORD: 'admin'
+          REFRESH_TOKEN: 'hello'
       alist-encrypt:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
@@ -41,9 +41,7 @@ jobs:
       - name: Login
         id: login
         run: |
-          wget -O test http://alist:5244 
-          ls
-          cat test
+          wget -O test http://alist-encrypt:5344
           ltoken=$(python alist.py --act='login')
           echo "::set-output name=token::$ltoken"
           
