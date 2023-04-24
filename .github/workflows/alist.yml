@@ -1,4 +1,4 @@
-name: 使用Alist的镜像测试加密文件名
+name: 的镜像测试加密文件名
 on:
   repository_dispatch:
   workflow_dispatch:
