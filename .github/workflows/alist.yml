@@ -16,19 +16,19 @@ jobs:
   Dev:
     runs-on: ubuntu-latest
     services:
-      alist:
-        image: xhofe/alist:latest
-        env:
-          ALIST_ADMIN_PASSWORD: 'admin'
-        ports:
-          - 5244:5244
-#       alist-encrypt:
-#         image: ykxvk8yl5l/alist-encrypt:dev
+#       alist:
+#         image: xhofe/alist:latest
 #         env:
-#           DAV_PASSWORD: '123456'
-#           DAV_ENCNAME: true
+#           ALIST_ADMIN_PASSWORD: 'admin'
 #         ports:
-#           - 5344:5344
+#           - 5244:5244
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:dev
+        env:
+          DAV_PASSWORD: '123456'
+          DAV_ENCNAME: true
+        ports:
+          - 5344:5344
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
@@ -45,6 +45,6 @@ jobs:
       - name: Login
         id: login
         run: |
-          wget -O test http://alist:5244 
+          wget -O test alist:5344 
           ls
           cat test
