@@ -1,0 +1,59 @@
+name: 使用内置Alist的镜像测试加密文件名
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      Url:
+        description: '下载URL'
+        required: true
+        default: 'https://网址##名称'
+      Folder:
+        description: '保存目录'
+        required: true
+        default: 'test'
+
+jobs:
+  Dev:
+    runs-on: ubuntu-latest
+    services:
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:all
+        env:
+          DAV_PASSWORD: '123456'
+          DAV_ENCNAME: true
+          ALIST_ADMIN_PASSWORD: 'admin'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Aria2 Install
+        run:  sudo apt-get install -y aria2 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install prerequisites
+        run: |
+          python -m pip install --upgrade pip wheel
+          pip install install requests
+          
+      - name: Mount aliyun
+        run: |
+          python alist.py --act='mount' --token='${{ secrets.ALIYUN_REFRESH_TOKEN }}' --dir='root'
+          
+      - name: Downloading
+        id: downloading
+        run: |
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          echo "::set-output name=path::downloads/$filename"
+          python alist.py --act='download' --url="$url"
+      - name: Upload File
+        run: |
+          python alist.py --act='upload' --file='${{ steps.downloading.outputs.filename }}'
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
