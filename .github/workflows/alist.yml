@@ -17,13 +17,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       alist:
-        image: ykxvk8yl5l/alist-encrypt:all
+        image: FROM xhofe/alist:latest
+        env:
+          ALIST_ADMIN_PASSWORD: 'admin'
+      alist-encrypt:
+        image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
           DAV_ENCNAME: true
           ALIST_ADMIN_PASSWORD: 'admin'
-        ports:
-          - 5344:5344
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
@@ -40,8 +42,6 @@ jobs:
       - name: Login
         id: login
         run: |
-          wget http://alist:5344
-          ls
           ltoken=$(python alist.py --act='login')
           echo "::set-output name=token::$ltoken"
           
