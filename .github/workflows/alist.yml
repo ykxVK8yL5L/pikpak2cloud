@@ -1,4 +1,4 @@
-name: 使用Alist的镜像测试加密文件名
+name: 使用Alist镜像测试功能
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -16,35 +16,18 @@ jobs:
   Dev:
     runs-on: ubuntu-latest
     services:
-#       alist:
-#         image: xhofe/alist:latest
-#         env:
-#           ALIST_ADMIN_PASSWORD: 'admin'
-#         ports:
-#           - 5244:5244
       alist:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
-          DAV_ENCNAME: true
-        ports:
-          - 5344:5344
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
         run:  sudo apt-get install -y aria2 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: install prerequisites
+      - name: Downloading
+        id: downloading
         run: |
-          python -m pip install --upgrade pip wheel
-          pip install requests
-      
-      - name: Login
-        id: login
-        run: |
-          wget -O test alist:5344 
+          wget -O test http://alist:5344
           ls
           cat test
+      
