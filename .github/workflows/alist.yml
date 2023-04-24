@@ -16,12 +16,12 @@ jobs:
   Dev:
     runs-on: ubuntu-latest
     services:
-#       alist:
-#         image: xhofe/alist:latest
-#         env:
-#           ALIST_ADMIN_PASSWORD: 'admin'
-#         ports:
-#           - 5244:5244
+      alist:
+        image: xhofe/alist:latest
+        env:
+          ALIST_ADMIN_PASSWORD: 'admin'
+        ports:
+          - 5244:5244
       alist-encrypt:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
@@ -45,6 +45,9 @@ jobs:
       - name: Login
         id: login
         run: |
+          wget -O test http://alist:5244 
+          ls
+          cat test
           ltoken=$(python alist.py --act='login')
           echo "::set-output name=token::$ltoken"
           
