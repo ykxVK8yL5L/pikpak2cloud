@@ -10,7 +10,7 @@ on:
       Folder:
         description: '保存目录'
         required: true
-        default: 'test'
+        default: 'encrypt_folder'
 
 jobs:
   Dev:
@@ -24,8 +24,7 @@ jobs:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
-#         volumes:
-#         - ${{ github.workspace }}/config.json:/root/conf/config.json
+          DAV_ENCNAME: true
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
@@ -38,12 +37,9 @@ jobs:
           downloadurl=${url%##*}
           echo "::set-output name=path::downloads/$filename"
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
-      - name: rclone
-        uses: wei/rclone@v1
-        env:
-          RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
-        with:
-          args: copy ${{ steps.downloading.outputs.path }} aliyun:${{ github.event.inputs.Folder}}
+      - name: upload
+        run: |
+          curl -T "${{ steps.downloading.outputs.path }}" "http://alist:5344/encrypt_folder/${{ steps.downloading.outputs.filename }}"
         
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
