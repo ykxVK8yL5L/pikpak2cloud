@@ -43,7 +43,7 @@ jobs:
           
       - name: Mount aliyun
         run: |
-          python alist.py --act='mount' --refresh_token='${{ secrets.ALIST_REFRESH_TOKEN }}' --dir='root' --token='${{ steps.login.outputs.token }}'
+          python alist.py --act='mount' --refresh_token='${{ secrets.ALIST_REFRESH_TOKEN }}' --dir='${{ github.event.inputs.Folder}}' --token='${{ steps.login.outputs.token }}'
           
       - name: Downloading
         id: downloading
