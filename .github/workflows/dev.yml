@@ -16,12 +16,6 @@ jobs:
   Dev:
     runs-on: ubuntu-latest
     services:
-      alist:
-        image: xhofe/alist:latest
-        env:
-          ALIST_ADMIN_PASSWORD: 'admin'
-        ports:
-          - 5244:5244
       alist-encrypt:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
