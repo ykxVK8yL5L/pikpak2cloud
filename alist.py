@@ -61,6 +61,8 @@ def mount_aliyun(refresh_token:str,root_id:str,token:str):
 
 
 if __name__ == '__main__':
+  print('hello')
+  quit()
   if args.act=='mount':
     mount_aliyun(args.refresh_token,args.dir,args.token)
   elif args.act=='download':
