@@ -45,6 +45,6 @@ jobs:
       - name: Login
         id: login
         run: |
-          auth_token=$(python alist.py --act='login')
-          echo $auth_token
-          echo "::set-output name=auth_tone::$auth_token"
+          alist_token=$(python alist.py --act='login')
+          echo $alist_token
+          echo "::set-output name=alist_token::$alist_token"
