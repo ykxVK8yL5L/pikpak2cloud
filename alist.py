@@ -1,6 +1,6 @@
 import sys
 import argparse
-from json
+import json
 import requests
 
 parser = argparse.ArgumentParser(description='操作Alist')
