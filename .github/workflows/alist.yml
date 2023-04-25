@@ -42,7 +42,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install install requests
+      - name: Downloading
+        id: downloading
+        run: |
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          echo "::set-output name=path::downloads/$filename"
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
       - name: Upload
         id: upload
         run: |
-          python alist.py
+          python alist.py --file="$filename"
