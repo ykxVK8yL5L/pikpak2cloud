@@ -12,7 +12,7 @@ def login():
   payload = {}
   headers = {}
   response = requests.request("POST", url, headers=headers, data=payload)
-  result = json.loads(r.text)
+  result = json.loads(response.text)
   return result['data']['token']
 
 if __name__ == '__main__':
