@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Aria2 Install
-        run: sudo apt install -y aria2 
+        run: apt-get update; apt-get install aria2 -y 
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
