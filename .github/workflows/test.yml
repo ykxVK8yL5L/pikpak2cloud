@@ -26,6 +26,7 @@ jobs:
         - 5344:5344
     steps:
       - uses: actions/checkout@v2
+      - run: apt-get update && apt-get install wget -y
       - name: test prots
         run: |
           wget -O test http://alist:5344/public/index.hmtl
