@@ -1,0 +1,31 @@
+name: 测试功能
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      Url:
+        description: '下载URL'
+        required: true
+        default: 'https://网址##名称'
+      Folder:
+        description: '保存目录'
+        required: true
+        default: 'encrypt_folder'
+
+jobs:
+  Dev:
+    runs-on: ubuntu-latest
+    services:
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:dev
+        env:
+          DAV_PASSWORD: '123456'
+          DAV_ENCNAME: true
+        ports:
+        - 5344:5344
+    steps:
+      - uses: actions/checkout@v2
+      - name: test prots
+        run: |
+          wget -O test http://127.0.0.1:5344/public/index.hmtl
+          cat test
