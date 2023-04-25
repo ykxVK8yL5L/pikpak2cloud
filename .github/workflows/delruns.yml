@@ -6,6 +6,7 @@ jobs:
   del_runs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
         with:
