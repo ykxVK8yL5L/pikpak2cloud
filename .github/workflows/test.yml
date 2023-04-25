@@ -15,6 +15,7 @@ on:
 jobs:
   Dev:
     runs-on: ubuntu-latest
+    container: ubuntu
     services:
       alist:
         image: ykxvk8yl5l/alist-encrypt:dev
