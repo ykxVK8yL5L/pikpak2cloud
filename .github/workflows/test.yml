@@ -26,8 +26,16 @@ jobs:
         - 5344:5344
     steps:
       - uses: actions/checkout@v2
-      - run: apt-get update && apt-get install wget -y
-      - name: test prots
+      - name: Aria2 Install
+        run: sudo apt install -y aria2 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install prerequisites
         run: |
-          wget -O test http://127.0.0.1:5344/public/index.hmtl
-          cat test
+          python -m pip install --upgrade pip wheel
+          pip install install requests
+      - name: test ports
+        run: |
+          python test.py
