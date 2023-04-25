@@ -19,4 +19,10 @@ def login():
 
 if __name__ == '__main__':
     auth_token=login()
-    print(auth_token)
+    url = "http://alist:5244/api/admin/setting/list?group=0"
+    payload = {}
+    headers = {
+      'Authorization': auth_token
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    print(response.text)
