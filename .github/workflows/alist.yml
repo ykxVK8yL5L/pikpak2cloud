@@ -1,4 +1,4 @@
-name: 通过Alist上传
+name: 通过Alist上传【未完成】
 on:
   repository_dispatch:
   workflow_dispatch:
