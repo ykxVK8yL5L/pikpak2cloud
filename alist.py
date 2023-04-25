@@ -1,7 +1,9 @@
 import sys
+import os
 import argparse
 import json
 import requests
+
 
 parser = argparse.ArgumentParser(description='操作Alist')
 parser.add_argument("--act", help="操作", default="")
@@ -16,8 +18,5 @@ def login():
   return result['data']['token']
 
 if __name__ == '__main__':
-  if args.act=='login':
     auth_token=login()
     print(auth_token)
-  else:
-    quit()
