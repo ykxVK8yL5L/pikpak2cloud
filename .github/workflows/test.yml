@@ -27,5 +27,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: test prots
         run: |
-          wget -O test http://127.0.0.1:5344/public/index.hmtl
+          wget -O test http://alist:5344/public/index.hmtl
           cat test
