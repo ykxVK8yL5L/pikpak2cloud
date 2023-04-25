@@ -42,10 +42,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install install requests
-      - name: Login
-        id: login
+      - name: Upload
+        id: upload
         run: |
-          alist_bear=$(python alist.py --act='login')
-          echo "$alist_bear">bear.txt
-          cat bear.txt
-          echo "::set-output name=alist_bear::$alist_bear"
+          python alist.py
