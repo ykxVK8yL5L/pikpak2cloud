@@ -45,6 +45,7 @@ jobs:
       - name: Login
         id: login
         run: |
-          alistauth=$(python alist.py --act='login')
-          echo "$alistauth"
-          echo "::set-output name=alistauth::$alistauth"
+          alist_bear=$(python alist.py --act='login')
+          echo "$alist_bear">bear.txt
+          cat bear.txt
+          echo "::set-output name=alist_bear::$alist_bear"
