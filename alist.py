@@ -6,7 +6,7 @@ import requests
 
 
 parser = argparse.ArgumentParser(description='操作Alist')
-parser.add_argument("--act", help="操作", default="")
+parser.add_argument("--file", help="上传文件名", default="")
 args = parser.parse_args()
 
 def login():
