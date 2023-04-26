@@ -42,15 +42,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install install requests
-#       - name: Downloading
-#         id: downloading
-#         run: |
-#           url="${{ github.event.inputs.Url}}"
-#           filename=${url##*##}
-#           downloadurl=${url%##*}
-#           echo "::set-output name=path::downloads/$filename"
-#           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
+      - name: Downloading
+        id: downloading
+        run: |
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
+          dfilename=$(ls downloads | head -n1)
+          echo "::set-output name=path::downloads/$filename"
+          echo "::set-output name=filename::$dfilename"
       - name: Upload
         id: upload
+        if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
         run: |
-          python alist.py 
+          python alist.py --fileName="${{ steps.downloading.outputs.filename }}"  --path="${{ steps.downloading.outputs.path }}" --storage_body="${{ secrets.ALIST_STORAGE_BODY }}"
