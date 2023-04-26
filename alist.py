@@ -7,7 +7,7 @@ parser.add_argument("--path", help="上传本地路径", default="")
 parser.add_argument("--fileName", help="上传文件名", default="")
 args = parser.parse_args()
 
-alist_host="http://alist-encrypt:5344"
+alist_host="http://127.0.0.1:5344"
 UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
 
 # 获取Token
@@ -15,7 +15,7 @@ def login():
   url = f'{alist_host}/api/auth/login?Password=admin&Username=admin'
   payload = {}
   headers = {}
-  response = requests.request("POST", url, headers=headers, data=payload)
+  response = requests.request("POST", url, headers=headers, data=payload,timeout=60)
   result = json.loads(response.text)
   return result['data']['token']
 
@@ -48,6 +48,7 @@ def Upload(token,localPath, remotePath, fileName, password = ''):
    
 if __name__ == '__main__':
     auth_token=login()
+    print(auth_token)
     storage_result = json.loads(storage_create(auth_token,base64.b64decode(args.storage_body)).text)
     print(storage_result)
     quit()
