@@ -13,6 +13,12 @@ RCLONE_ALIYUN_CONF:Rclone用来拷贝文件到阿里云Webdav,或添加到已有
 type = webdav
 url = http://alist:5344/
 vendor = other
+[alist]
+type = webdav
+url = http://alist-encrypt:5344/dav
+vendor = other
+user = admin
+pass = VmiZZcVpZnbDzjmqI5VnevHKOnQU
 ```
 
 如果需要自定义密码：可自建secrets
