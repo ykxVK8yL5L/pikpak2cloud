@@ -42,7 +42,7 @@ def Upload(token,localPath, remotePath, fileName, password = ''):
             'Password': password,
             'Content-Length': f'{os.path.getsize(localPath)}'
         }
-        return json.loads(requests.put(f'http://encrypt:5344/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
+        return json.loads(requests.put(f'http://uploader:5344/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
     except Exception as e:
         return {'code': -1, 'message': e}
    
