@@ -42,16 +42,13 @@ def Upload(token,localPath, remotePath, fileName, password = ''):
             'Password': password,
             'Content-Length': f'{os.path.getsize(localPath)}'
         }
-        return json.loads(requests.put(f'{alist_host}/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
+        return json.loads(requests.put(f'http://encrypt:5344/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
     except Exception as e:
         return {'code': -1, 'message': e}
    
 if __name__ == '__main__':
     auth_token=login()
-    print(auth_token)
     storage_result = json.loads(storage_create(auth_token,base64.b64decode(args.storage_body)).text)
-    print(storage_result)
-    quit()
     if storage_result['message']=='success':
         time.sleep(2)
         upload_result=Upload(auth_token,args.path,"encrypt_folder",args.fileName)
