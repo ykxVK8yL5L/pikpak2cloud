@@ -7,7 +7,7 @@ parser.add_argument("--path", help="上传本地路径", default="")
 parser.add_argument("--fileName", help="上传文件名", default="")
 args = parser.parse_args()
 
-alist_host="http://alist:5244"
+alist_host="http://alist-encrypt:5344"
 UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
 
 # 获取Token
@@ -42,7 +42,7 @@ def Upload(token,localPath, remotePath, fileName, password = ''):
             'Password': password,
             'Content-Length': f'{os.path.getsize(localPath)}'
         }
-        return json.loads(requests.put(f'http://uploader:5344/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
+        return json.loads(requests.put(f'{alist_host}/api/fs/put', headers=upload_header, data=open(localPath, 'rb').read()).text)
     except Exception as e:
         return {'code': -1, 'message': e}
    
