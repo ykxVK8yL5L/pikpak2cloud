@@ -32,7 +32,7 @@ def storage_create(token,body):
     except Exception as e:
         return {'code': -1, 'message': e}
   
-# 上传文件
+# 上传文件，由于Rclone的Bug已经修复，直接使用Rclone上传
 def Upload(token,localPath, remotePath, fileName, password = ''):
     try:
         upload_header = {
@@ -50,6 +50,8 @@ if __name__ == '__main__':
     auth_token=login()
     storage_result = json.loads(storage_create(auth_token,base64.b64decode(args.storage_body)).text)
     if storage_result['message']=='success':
+        print("挂载成功")
+        quit()
         time.sleep(2)
         upload_result=Upload(auth_token,args.path,"encrypt_folder",args.fileName)
         print(upload_result)
