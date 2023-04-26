@@ -23,7 +23,7 @@ jobs:
           ALIST_ADMIN_PASSWORD: 'admin'
         ports:
         - 5244:5244
-      encrypt:
+      uploader:
         image: ykxvk8yl5l/alist-encrypt:dev
         env:
           DAV_PASSWORD: '123456'
