@@ -28,6 +28,7 @@ jobs:
         env:
           DAV_PASSWORD: '123456'
           DAV_ENCNAME: true
+          DAV_ENABLE_OTHER: false
         ports:
         - 5344:5344
     steps:
