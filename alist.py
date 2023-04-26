@@ -7,7 +7,7 @@ parser.add_argument("--path", help="上传本地路径", default="")
 parser.add_argument("--fileName", help="上传文件名", default="")
 args = parser.parse_args()
 
-alist_host="http://127.0.0.1:5344"
+alist_host="http://alist:5244"
 UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
 
 # 获取Token
