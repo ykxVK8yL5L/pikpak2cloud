@@ -60,6 +60,7 @@ jobs:
           python alist.py --fileName="${{ steps.downloading.outputs.filename }}"  --path="${{ steps.downloading.outputs.path }}" --storage_body="${{ secrets.ALIST_STORAGE_BODY }}"
       - name: rclone
         uses: wei/rclone@v1
+        if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
         with:
