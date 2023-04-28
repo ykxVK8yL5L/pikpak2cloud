@@ -6,7 +6,7 @@ ALIST_STORAGE_BODY：Alist添加存储的json对象的base64加密，有些难�
 
 https://youtu.be/KXXTwzZlGNc
    
-# Alist如果使用rclone copy出错的话，请好用alist的api上传具体看视频介绍   
+# Alist如果使用rclone copy出错的话，请改用alist的api上传具体看视频介绍   
 # 20230421新增加密转存阿里云功能 
 需要添加两个secrets:   
 ALIYUN_REFRESH_TOKEN:阿里云刷新Token用来挂载阿里云webdav    
