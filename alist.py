@@ -51,7 +51,7 @@ if __name__ == '__main__':
     storage_result = json.loads(storage_create(auth_token,base64.b64decode(args.storage_body)).text)
     if storage_result['message']=='success':
         print("挂载成功")
-        quit()
+#        quit()
         time.sleep(2)
         upload_result=Upload(auth_token,args.path,"encrypt_folder",args.fileName)
         print(upload_result)
