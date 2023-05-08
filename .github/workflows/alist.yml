@@ -58,13 +58,13 @@ jobs:
         if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
         run: |
           python alist.py --fileName="${{ steps.downloading.outputs.filename }}"  --path="${{ steps.downloading.outputs.path }}" --storage_body="${{ secrets.ALIST_STORAGE_BODY }}"
-      - name: rclone
-        uses: wei/rclone@v1
-        if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
-        env:
-          RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
-        with:
-          args: copy ${{ steps.downloading.outputs.path }} alist:/encrypt_folder
+#       - name: rclone
+#         uses: wei/rclone@v1
+#         if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
+#         env:
+#           RCLONE_CONF: ${{ secrets.RCLONE_ALIYUN_CONF }}
+#         with:
+#           args: copy ${{ steps.downloading.outputs.path }} alist:/encrypt_folder
           
       - name: Download another
         uses: benc-uk/workflow-dispatch@v1
