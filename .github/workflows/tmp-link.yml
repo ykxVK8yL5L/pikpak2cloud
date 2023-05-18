@@ -1,0 +1,55 @@
+name: Aria2下载直链加密转存tmp.link
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      Url:
+        description: '下载URL'
+        required: true
+        default: 'https://网址##名称'
+      Folder:
+        description: '保存目录'
+        required: true
+        default: 'encrypt_folder'
+
+jobs:
+  Aria2-Aliyun:
+    runs-on: ubuntu-latest
+    services:
+      aliyun:
+        image: ykxvk8yl5l/tmp-link-webdav
+        env:
+          TMP_LINK_TOKEN: '${{ secrets.TMP_TOKEN }}'
+          PORT: 8080
+      alist:
+        image: ykxvk8yl5l/alist-encrypt:dev
+        env:
+          DAV_PASSWORD: '${{ secrets.ALIST_ENCRYPT_PASSWORD }}'
+          DAV_ENCNAME: true
+          DAV_ENCPATH: '/*'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Aria2 Install
+        run: sudo apt install -y aria2 
+      - name: Downloading
+        id: downloading
+        run: |
+          url="${{ github.event.inputs.Url}}"
+          filename=${url##*##}
+          downloadurl=${url%##*}
+          echo "::set-output name=path::downloads/$filename"
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
+          
+      - name: upload
+        uses: wei/curl@v1
+        if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
+        with:
+          args: --upload-file ${{ steps.downloading.outputs.path }} http://alist:5344/${{ steps.downloading.outputs.filename }} 
+        
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
