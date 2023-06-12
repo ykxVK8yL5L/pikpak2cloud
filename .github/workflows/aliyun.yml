@@ -37,7 +37,7 @@ jobs:
           
       - name: upload
         uses: wei/curl@v1
-        if: steps.downloading.outputs.filename != '' && !cancelled() && !failure()
+        if: steps.downloading.outputs.path != '' && !cancelled() && !failure()
         with:
           args: --upload-file ${{ steps.encrypt.outputs.path }}  http://aliyun:8080/${{ steps.downloading.outputs.filename }}
         
