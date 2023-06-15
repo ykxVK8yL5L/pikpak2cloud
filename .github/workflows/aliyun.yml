@@ -37,7 +37,7 @@ jobs:
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c $downloadurl -o $filename
           
       - name: upload
-        uses: wei/curl@v1
+        uses: thinkdolabs/curl@v1
         if: steps.downloading.outputs.path != '' && !cancelled() && !failure()
         with:
           args: --upload-file ${{ steps.downloading.outputs.path }}  http://aliyun:8080/${{ steps.downloading.outputs.filename }}
