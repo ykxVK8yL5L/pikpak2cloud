@@ -8,6 +8,7 @@ ALIST_STORAGE_BODY：Alist添加存储的json对象的base64加密，有些难�
 https://youtu.be/KXXTwzZlGNc
 
 # 20240106Alist使用远程数据库实现一次配置到处使用   
+需要创建名为ALIST_CONFIG的secrets内容为：   
 config.json文件内容
 ```
 {
