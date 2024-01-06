@@ -52,22 +52,15 @@ jobs:
         run: |
           echo 'username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}' >> config.yml
-      - name: 'Download file from PikPak'
+          
+      - name: 'Download file'
         run: |
-          chmod a+x pikpakcli
-          ./pikpakcli download -p ${{ github.event.inputs.path }}
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://ipfs.4everland.io/ipfs/QmULDFRSM8MYk8fr6e48UHbgKdTbR1RxrvA57x24d5j5yA/Lollipop.mp3' -o 'Lollipop.mp3' 
 
       - name: 上传到Alist
         run: |
-          curl -v -u 'admin:admin' -T '文件路径' http://localhost:5244/dav/文件路径
+          curl -v -u 'admin:admin' -T 'Lollipop.mp3' http://localhost:5244/dav/hefamily/files/Lollipop.mp3
           
-      - name: rclone
-        uses: wei/rclone@v1
-        env:
-          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
-        with:
-          args: copy ${{ github.event.inputs.path }} remote2:${{ github.event.inputs.path }}
-        
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
         with:
