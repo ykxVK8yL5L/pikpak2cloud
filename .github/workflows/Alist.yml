@@ -21,6 +21,11 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
 
+      - name: Aria2 Install
+        run: |
+            sudo apt update
+            sudo apt install -y aria2 nodejs curl
+
       - name: 生成Alist的配置文件
         id: create-json
         uses: jsdaniell/create-json@v1.2.2
