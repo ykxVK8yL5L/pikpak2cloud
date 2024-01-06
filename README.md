@@ -22,7 +22,7 @@ config.json文件内容
     "port": 5433,
     "user": "xxxxx",
     "password": "xxxxxx",
-    "name": "yugabyte",
+    "name": "xxxxxx",
     "db_file": "data/data.db",
     "table_prefix": "x_",
     "ssl_mode": "prefer"
