@@ -51,6 +51,10 @@ jobs:
         run: |
           chmod a+x pikpakcli
           ./pikpakcli download -p ${{ github.event.inputs.path }}
+
+      - name: 上传到Alist
+        run: |
+          curl -v -u 'admin:admin' -T '文件路径' http://localhost:5244/dav/文件路径
           
       - name: rclone
         uses: wei/rclone@v1
