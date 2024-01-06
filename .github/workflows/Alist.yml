@@ -1,4 +1,4 @@
-name: 上传至Alist
+name: 0上传至Alist
 on:
   repository_dispatch:
   workflow_dispatch:
