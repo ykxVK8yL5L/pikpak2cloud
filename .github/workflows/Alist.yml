@@ -48,11 +48,6 @@ jobs:
         run: sleep 120s
         shell: bash
           
-      - name: '下载pikpak文件'
-        run: |
-          echo 'username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}' >> config.yml
-          
       - name: 'Download file'
         run: |
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://ipfs.4everland.io/ipfs/QmULDFRSM8MYk8fr6e48UHbgKdTbR1RxrvA57x24d5j5yA/Lollipop.mp3' -o 'Lollipop.mp3' 
