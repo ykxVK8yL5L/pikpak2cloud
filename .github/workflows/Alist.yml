@@ -1,0 +1,69 @@
+name: 上传至Alist
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Onedriver'
+
+jobs:
+  Onedriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
+      - name: 生成Alist的配置文件
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "config.json"
+          json: ${{ secrets.ALIST_CONFIG }}
+          
+      - name: 运行Alist
+        run: |
+          curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
+          tar -xzf alist.tar.gz
+          mkdir data
+          mv config.json data/config.json
+          nohup ./alist server > nohupcmd.out 2>&1 &
+          ls ${{github.workspace}}/data
+        env:
+          ALIST_ADMIN_PASSWORD: admin
+
+      - name: 等Alist运行起来(大概2分钟)
+        run: sleep 120s
+        shell: bash
+          
+      - name: '下载pikpak文件'
+        run: |
+          echo 'username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}' >> config.yml
+      - name: 'Download file from PikPak'
+        run: |
+          chmod a+x pikpakcli
+          ./pikpakcli download -p ${{ github.event.inputs.path }}
+          
+      - name: rclone
+        uses: wei/rclone@v1
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        with:
+          args: copy ${{ github.event.inputs.path }} remote2:${{ github.event.inputs.path }}
+        
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
+
