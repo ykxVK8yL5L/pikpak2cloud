@@ -6,6 +6,82 @@ ALIST_STORAGE_BODY：Alist添加存储的json对象的base64加密，有些难�
 支持Alist的话相当于支持了其它的网盘 已不仅限于阿里云了
 
 https://youtu.be/KXXTwzZlGNc
+
+# 20240106Alist使用远程数据库实现一次配置到处使用   
+config.json文件内容
+```
+{
+  "force": false,
+  "site_url": "",
+  "cdn": "",
+  "jwt_secret": "wlTTJM2ndocNcsw5",
+  "token_expires_in": 48,
+  "database": {
+    "type": "postgres",
+    "host": "xxxxxx",
+    "port": 5433,
+    "user": "xxxxx",
+    "password": "xxxxxx",
+    "name": "yugabyte",
+    "db_file": "data/data.db",
+    "table_prefix": "x_",
+    "ssl_mode": "prefer"
+  },
+  "scheme": {
+    "address": "0.0.0.0",
+    "http_port": 5244,
+    "https_port": -1,
+    "force_https": false,
+    "cert_file": "",
+    "key_file": "",
+    "unix_file": "",
+    "unix_file_perm": ""
+  },
+  "temp_dir": "data/temp",
+  "bleve_dir": "data/bleve",
+  "dist_dir": "",
+  "log": {
+    "enable": true,
+    "name": "data/log/log.log",
+    "max_size": 50,
+    "max_backups": 30,
+    "max_age": 28,
+    "compress": false
+  },
+  "delayed_start": 0,
+  "max_connections": 0,
+  "tls_insecure_skip_verify": true,
+  "tasks": {
+    "download": {
+      "workers": 5,
+      "max_retry": 1
+    },
+    "transfer": {
+      "workers": 5,
+      "max_retry": 2
+    },
+    "upload": {
+      "workers": 5,
+      "max_retry": 0
+    },
+    "copy": {
+      "workers": 5,
+      "max_retry": 2
+    }
+  },
+  "cors": {
+    "allow_origins": [
+      "*"
+    ],
+    "allow_methods": [
+      "*"
+    ],
+    "allow_headers": [
+      "*"
+    ]
+  }
+}
+```
    
 # Alist如果使用rclone copy出错的话，请改用alist的api上传具体看视频介绍   
 # 20230518新增加密转存至tmp.link功能    
